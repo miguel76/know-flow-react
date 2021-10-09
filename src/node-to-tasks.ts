@@ -1,11 +1,11 @@
 import React, {isValidElement} from "react";
 import ReactDOM from 'react-dom';
-import { TaskFactory, Tasks } from "know-flow";
+import { TaskFactory, Types } from "know-flow";
 import { Task } from "know-flow/dist/task";
-import KnowFlowComponent from './component';
+import ComponentBuilder from './component';
 
-export function valueToTask(taskFactory: TaskFactory, obj: any): Tasks.Task<any> {
-    return (obj instanceof Tasks.Task) ? obj : taskFactory.createConstant(obj);
+export function valueToTask(taskFactory: TaskFactory, obj: any): Types.Task<any> {
+    return (obj instanceof Types.Task) ? obj : taskFactory.createConstant(obj);
 }
 
 // children?: ReactNode | undefined
@@ -38,7 +38,7 @@ function isReactPortal(node: React.ReactNode): node is React.ReactPortal {
 }
 
 export function elementToTask(taskFactory: TaskFactory, element: React.ReactElement):
-        Tasks.Task<React.ReactElement> {
+        Types.Task<React.ReactElement> {
     // Shoul we add children (outside of props) if it is a ReactPortal?
     return taskFactory.createCascade({
         task: taskFactory.createParallelDict({
@@ -51,15 +51,14 @@ export function elementToTask(taskFactory: TaskFactory, element: React.ReactElem
 }
 
 export default function nodeToTask(taskFactory: TaskFactory, node: React.ReactNode):
-        Tasks.Task<React.ReactNode> {
+        Types.Task<React.ReactNode> {
     console.log(node);
-    if (node instanceof Tasks.Task) {
+    if (node instanceof Types.Task) {
         return node;
     } else if (isValidElement(node)) {
-        if (KnowFlowComponent.isPrototypeOf(node.type)) {
+        if (ComponentBuilder.isOwnComponentType(node.type)) {
             console.log('is kf component');
-            console.log(node.props.task);
-            return node.props.task;
+            return node.type.task(node.props);
         } else {
             console.log('is other element');
             return elementToTask(taskFactory, node);
@@ -72,7 +71,7 @@ export default function nodeToTask(taskFactory: TaskFactory, node: React.ReactNo
 }
 
 export function componentAttributesToTask(taskFactory: TaskFactory, props: any):
-        Tasks.Task<React.Component> {
+        Types.Task<React.Component> {
     let attrEntries = Object.entries(props).filter(([name, value]) => name != 'children');
     let attrNames = attrEntries.map(([name, value]) => name);
     return taskFactory.createCascade({
