@@ -1,7 +1,9 @@
 import React from "react";
 import nodeToTask from "./node-to-tasks";
-import {TaskBuilder, TaskFactory, TaskEngine, stringifyTask, Tasks} from 'know-flow';
-import KnowFlowComponent from "./component";
+import {TaskBuilder, TaskFactory, TaskEngine, stringifyTask} from 'know-flow';
+import ComponentBuilder from "./component";
+import {newEngine as newComunicaEngine} from '@comunica/actor-init-sparql';
+import Engine from './engineComponent';
 
 let options = {
     prefixes: {
@@ -17,35 +19,44 @@ let options = {
 let taskFactory = new TaskFactory(options);
 let tb = new TaskBuilder(options);
 
-interface ValueProps {
-    path?: string
-}
+let kf = new ComponentBuilder(options);
 
-class Value extends KnowFlowComponent<ValueProps> {
-    constructor(props: ValueProps) {
-      super(props, tb.value(props.path));
-    }
-}
-  
+let te = new TaskEngine({
+  engine: newComunicaEngine(),
+  queryContext: {
+      sources: [{ type: 'sparql', value: 'https://query.wikidata.org/sparql' }]
+  }
+});
+
 let task = nodeToTask(taskFactory,
-  // <Value path='rdfs:label'/>
-  <div id='pippo'>
-    <p>prova</p>
-    {/* <p>{tb.value()}</p> */}
-  </div>
+  <kf.input bindings='wd:Q3504248'>
+    <p>Una lista di ... </p>
+    <kf.value traverse='rdfs:label' lang='it'/>
+    <p>ecco ... </p>
+    <kf.forEach predicate='^wdt:P31'>
+      <p>pianeta</p>
+      <kf.value traverse='rdfs:label' lang='it'/>
+    </kf.forEach>
+  </kf.input>
 );
 
 let json = JSON.stringify(stringifyTask(task), null, 4);
 
-  
-
 const TestComponent:React.FC = (props: any) => (
-
-<div id='pippo'>
-  <h1>json</h1>
-  <p>{json}</p>
-</div>
+  <Engine engine={newComunicaEngine()}
+      queryContext={{sources: [{ type: 'sparql', value: 'https://query.wikidata.org/sparql' }]}}>
+    <p>{json}</p>
+    <kf.input bindings='wd:Q3504248'>
+      <p>Una lista di ... </p>
+      <kf.value traverse='rdfs:label' lang='it'/>
+      <p>eccoci ... </p>
+      <kf.forEach predicate='^wdt:P31'>
+        <p>pianeta</p>
+        <kf.value traverse='rdfs:label' lang='it'/>
+      </kf.forEach>
+    </kf.input>
+  </Engine>
 );
-
+  
 export default TestComponent;
 

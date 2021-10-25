@@ -1,7 +1,7 @@
 import React from "react";
 import nodeToTask from "./node-to-tasks";
-import {TaskBuilder, TaskFactory, TaskEngine, stringifyTask, Tasks} from 'know-flow';
-import KnowFlowComponent from "./component";
+import {TaskBuilder, TaskFactory, TaskEngine, stringifyTask} from 'know-flow';
+import ComponentBuilder from "./component";
 
 let options = {
     prefixes: {
@@ -14,45 +14,26 @@ let options = {
     }
 };
 
-
-interface ValueProps {
-    path?: string
-}
-
-class Value extends KnowFlowComponent<ValueProps> {
-    constructor(props: ValueProps) {
-      super(props, tb.value(props.path));
-      console.log(props.path);
-    }
-}
-  
 let taskFactory = new TaskFactory(options);
 let tb = new TaskBuilder(options);
 
-// let task = nodeToTask(taskFactory,
-//   <div id='pippo'>
-//     <p>prova</p>
-//     <p><Value path='rdfs:label'/></p>
-//   </div>
-// );
+let kf = new ComponentBuilder(options);
 
 let task = nodeToTask(taskFactory,
-  // <Value path='rdfs:label'/>
   <div id='pippo'>
     <p>prova</p>
-    <p>{tb.value()}</p>
   </div>
 );
 
 let json = JSON.stringify(stringifyTask(task), null, 4);
-console.log('json');
+
+  
 
 const TestComponent:React.FC = (props: any) => (
 
 <div id='pippo'>
   <h1>json</h1>
   <p>{json}</p>
-  {/* <p><Value path='rdfs:label'/></p> */}
 </div>
 );
 

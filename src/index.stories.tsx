@@ -4,7 +4,7 @@ import TestComponent from "./test";
 
 // This is meta information about our component
 const meta: Meta<PropsWithChildren<{}>> = {
-  title: 'My Component',  // What title to display in component story page
+  title: 'Ciccio',  // What title to display in component story page
   component: TestComponent,  // This one is obvious :-)
   argTypes: {  // Here we can specify configuration for our component's props
     children: {

@@ -8,31 +8,6 @@ export function valueToTask(taskFactory: TaskFactory, obj: any): Types.Task<any>
     return (obj instanceof Types.Task) ? obj : taskFactory.createConstant(obj);
 }
 
-// children?: ReactNode | undefined
-//     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
-
-// type ReactChild = ReactElement | ReactText;
-
-// interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
-//     type: T;
-//     props: P;
-//     key: Key | null;
-// }
-
-// type JSXElementConstructor<P> =
-// | ((props: P) => ReactElement<any, any> | null)
-// | (new (props: P) => Component<P, any>);
-
-// type ReactText = string | number;
-
-// type ReactFragment = {} | ReactNodeArray;
-// interface ReactNodeArray extends Array<ReactNode> {}
-
-// interface ReactPortal extends ReactElement {
-//     key: Key | null;
-//     children: ReactNode;
-// }
-
 function isReactPortal(node: React.ReactNode): node is React.ReactPortal {
     return node != undefined && typeof node === 'object' && 'children' in node;
 }
@@ -45,22 +20,18 @@ export function elementToTask(taskFactory: TaskFactory, element: React.ReactElem
             props: componentAttributesToTask(taskFactory, element.props),
             children: nodeToTask(taskFactory, element.props.children)
         }),
-        // action: (result) => React.cloneElement(comp, result.props)
         action: (result) => React.createElement(element.type, result.props, result.children)
     });
 }
 
 export default function nodeToTask(taskFactory: TaskFactory, node: React.ReactNode):
         Types.Task<React.ReactNode> {
-    console.log(node);
     if (node instanceof Types.Task) {
         return node;
     } else if (isValidElement(node)) {
         if (ComponentBuilder.isOwnComponentType(node.type)) {
-            console.log('is kf component');
             return node.type.task(node.props);
         } else {
-            console.log('is other element');
             return elementToTask(taskFactory, node);
         }
     } else if (Array.isArray(node)) {
