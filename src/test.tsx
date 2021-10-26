@@ -1,9 +1,7 @@
 import React from "react";
-import nodeToFlow from "./node-to-flow";
+import {nodeToFlow, ComponentBuilder, Engine} from "./index";
 import {FlowBuilder, FlowFactory, FlowEngine, stringifyFlow} from 'know-flow';
-import ComponentBuilder from "./componentBuilder";
 import {newEngine as newComunicaEngine} from '@comunica/actor-init-sparql';
-import Engine from './engineComponent';
 
 let options = {
     prefixes: {
