@@ -1,17 +1,17 @@
-import nodeToTask from "./node-to-tasks";
-import {TaskEngine} from 'know-flow';
+import nodeToFlow from "./node-to-flow";
+import {FlowEngine} from 'know-flow';
 import React, { useState, useEffect, ReactNode } from "react";
-import { TaskFactoryOrOptions, getTaskFactory } from "./component";
+import { FlowFactoryOrOptions, getFlowFactory } from "./componentBuilder";
 
 
 export default function Engine(
-        props: ConstructorParameters<typeof TaskEngine>[0] &
-            {children: React.ReactNode, factory?: TaskFactoryOrOptions}) {
+        props: ConstructorParameters<typeof FlowEngine>[0] &
+            {children: React.ReactNode, factory?: FlowFactoryOrOptions}) {
     const [generatedChildren, setGeneratedChildren] = useState<ReactNode>([]);
-    const engine = new TaskEngine(props);
-    const taskFactory = getTaskFactory(props.factory || {});
+    const engine = new FlowEngine(props);
+    const flowFactory = getFlowFactory(props.factory || {});
     useEffect(() => {
-        engine.run(nodeToTask(taskFactory, props.children)).then((results) => {
+        engine.run(nodeToFlow(flowFactory, props.children)).then((results) => {
             setGeneratedChildren(results);
         });
     });
