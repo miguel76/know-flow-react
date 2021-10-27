@@ -4,7 +4,7 @@
   "description": "Liked-data-aware React Components, based on know-flow library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Warning: no test specified\" && exit 0",
     "build": "rimraf dist && tsc --emitDeclarationOnly && rollup --config",
     "tsc": "tsc",
     "storybook": "start-storybook -p 6006",
