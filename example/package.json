@@ -10,6 +10,7 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
+    "@comunica/actor-init-sparql": "link:../node_modules/@comunica/actor-init-sparql",
     "@testing-library/jest-dom": "link:../node_modules/@testing-library/jest-dom",
     "@testing-library/react": "link:../node_modules/@testing-library/react",
     "@testing-library/user-event": "link:../node_modules/@testing-library/user-event",
@@ -17,11 +18,11 @@
     "@types/node": "link:../node_modules/@types/node",
     "@types/react": "link:../node_modules/@types/react",
     "@types/react-dom": "link:../node_modules/@types/react-dom",
+    "know-flow-react": "link:..",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "typescript": "link:../node_modules/typescript",
-    "know-flow-react": "link:.."
+    "typescript": "link:../node_modules/typescript"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
