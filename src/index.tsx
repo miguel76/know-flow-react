@@ -1,6 +1,4 @@
-import ComponentBuilder from './componentBuilder';
 import Engine from './engineComponent';
-import nodeToFlow from './node-to-flow';
+import ComponentBuilder from './componentBuilder';
 
-export {ComponentBuilder, Engine, nodeToFlow};
-
+export {Engine, ComponentBuilder}
