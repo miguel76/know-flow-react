@@ -76,6 +76,16 @@ export default class ComponentBuilder {
         return componentClass;
     }
 
+    pack<P>(displayName: string, reactComponent: React.FC, options?: {flowFactory?: FlowFactoryOrOptions}) {
+        let opts = options || {};
+        let flowFactory = getFlowFactory(opts.flowFactory || this.flowFactory) 
+        return this.componentWithoutChildren(
+            displayName,
+            (props: P) => {
+                return nodeToFlow(flowFactory, reactComponent(props));
+            });
+    }
+
     Value = this.componentWithoutChildren('Value',
             (props: Parameters<FlowFactory['createValueReader']>[0]) =>
                 (this.flowFactory.createValueReader(props)));

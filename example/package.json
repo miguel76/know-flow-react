@@ -22,7 +22,10 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "typescript": "link:../node_modules/typescript"
+    "typescript": "link:../node_modules/typescript",
+    "bootstrap": "link:../node_modules/bootstrap",
+    "react-bootstrap": "link:../node_modules/react-bootstrap",
+    "node-to-flow": "link:../dist/node-to-flow"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
