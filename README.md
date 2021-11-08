@@ -14,7 +14,7 @@ npm install --save know-flow-react
 
 ```tsx
 import React from "react";
-import {ComponentBuilder, Engine} from "know-flow-react";
+import {ComponentBuilder, Attribute, Engine} from "know-flow-react";
 import {newEngine as newComunicaEngine} from '@comunica/actor-init-sparql';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +34,9 @@ let kf = new ComponentBuilder(options);
 
 const PlanetInfo = kf.pack('PlanetInfo', (props: any) => (
   <Card>
+    <Card.Img variant="top">
+      <Attribute name="src"><kf.Value path='wdt:P18'/></Attribute>
+    </Card.Img>
     <Card.Body>
       <Card.Title><kf.Value path='rdfs:label' lang='it'/></Card.Title>
       <Card.Text><kf.Value path='schema:description' lang='it'/></Card.Text>

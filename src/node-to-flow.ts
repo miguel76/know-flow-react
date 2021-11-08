@@ -2,6 +2,7 @@ import React, {isValidElement} from "react";
 import ReactDOM from 'react-dom';
 import { FlowFactory, Types } from "know-flow";
 import ComponentBuilder from './componentBuilder';
+import { createElement } from "./createElements";
 
 export function valueToFlow(flowFactory: FlowFactory, obj: any): Types.Flow<any> {
     return (obj instanceof Types.Flow) ? obj : flowFactory.createConstant(obj);
@@ -19,7 +20,7 @@ export function elementToFlow(flowFactory: FlowFactory, element: React.ReactElem
             props: componentAttributesToFlow(flowFactory, element.props),
             children: nodeToFlow(flowFactory, element.props.children)
         }),
-        action: (result) => React.createElement(element.type, result.props, result.children)
+        action: (result) => createElement(element.type, result.props, result.children)
     });
 }
 

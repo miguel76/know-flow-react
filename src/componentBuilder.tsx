@@ -1,6 +1,6 @@
 import React from "react";
 import nodeToFlow from "./node-to-flow";
-import {FlowBuilder, FlowFactory, PathParam, Types, FlowFactoryOptions} from 'know-flow';
+import {FlowBuilder, FlowFactory, PathParam, Types, FlowFactoryOptions, FlowApplier} from 'know-flow';
 
 export type FlowFactoryOrOptions = FlowFactory | FlowFactoryOptions;
 
@@ -19,11 +19,12 @@ export class KnowFlowComponent<P> extends React.Component<P & {factory?: FlowFac
 
 type valueOfParams = {path?: string};
 
-export default class ComponentBuilder {
-    flowFactory: FlowFactory;
+export default class ComponentBuilder extends FlowBuilder {
 
     constructor(flowFactoryOrOptions: FlowFactoryOrOptions = {}) {
-        this.flowFactory = getFlowFactory(flowFactoryOrOptions);
+        super({
+            flowFactory: getFlowFactory(flowFactoryOrOptions)
+        });
     }
 
     static isOwnComponent(element: React.ReactElement): boolean {
@@ -110,4 +111,38 @@ export default class ComponentBuilder {
                 props: Omit<Parameters<FlowFactory['createValues']>[0], 'subflow'>,
                 subflow: Types.Flow<React.ReactNode>) =>
             (this.flowFactory.createValues(Object.assign({subflow},props))));
+
+    // value(path?: Parameters<FlowBuilder['value']>[0]): PlaceHolder<any,any> {
+    //     return new PlaceholderFlowApplier(super.value(path)) as PlaceHolder<any,any>;
+    // }
+
+    // str(path?: Parameters<FlowBuilder['value']>[0]): PlaceHolder<any,string> {
+    //     // return ({flowApplier: super.str(path)} as PlaceHolder<any,string>);
+    //     return new PlaceholderFlowApplier(super.str(path)) as PlaceHolder<any,string>;
+    // }
 }
+
+// type PlaceHolder<SubflowReturnType, ActionReturnType> = ActionReturnType & {
+//     flowApplier: FlowApplier<SubflowReturnType, ActionReturnType>
+// };
+
+// type PlaceHolder<SubflowReturnType, ActionReturnType> = ActionReturnType & FlowApplier<SubflowReturnType, ActionReturnType>;
+
+// class PlaceholderFlowApplier<SubflowReturnType, ActionReturnType>
+//         extends FlowApplier<SubflowReturnType, ActionReturnType> {
+
+//     constructor(
+//             flowApplier: FlowApplier<SubflowReturnType, ActionReturnType>) {
+//         super(flowApplier.flowFactory, flowApplier.subflow, flowApplier.action);
+//     }
+
+//     apply<NewReturnType>(exec: (x:ActionReturnType) => NewReturnType):
+//             PlaceHolder<ActionReturnType, NewReturnType> {
+//         return super.apply(exec) as PlaceHolder<ActionReturnType,NewReturnType>;
+//     }
+
+//     applyAsync<NewReturnType>(exec: (x:ActionReturnType) => Promise<NewReturnType>):
+//             FlowApplier<ActionReturnType, NewReturnType> {
+//         return super.applyAsync(exec) as PlaceHolder<ActionReturnType,NewReturnType>;
+//     }
+// }
