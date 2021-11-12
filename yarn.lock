@@ -9050,10 +9050,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-know-flow@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/know-flow/-/know-flow-1.4.1.tgz#1ea72047fb3838039de904ca24994fd0eead2b5a"
-  integrity sha512-4SN/N3I/+EKq0gE/cDZjTd8Xx1T4dARVWx6MEmX9Zo+eIX7pdgt/v8CkAQ7BXKuBrGkvDS1MjP74LIFJl31Fbw==
+know-flow@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/know-flow/-/know-flow-1.4.3.tgz#da7914510de9c740f7edf4a3ff2148526dc1687b"
+  integrity sha512-HrD110o40CIE0MAMdeTtR+zS7EfXhg5NSnMLaMEXxXgsXzY170Ir08+w40OpGBTEtMjTHnA4eRnrdHrBvVCPOA==
   dependencies:
     "@comunica/types" "^1.22.0"
     assert "^2.0.0"
