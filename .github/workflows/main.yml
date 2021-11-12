@@ -14,4 +14,4 @@ jobs:
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: publish # will run `yarn test` command
-          token: ${{ secrets.NPM_TOKEN }}
+          auth-token: ${{ secrets.NPM_TOKEN }}
