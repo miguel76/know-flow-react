@@ -13,8 +13,5 @@ jobs:
           cmd: build # will run `yarn build` command
       - uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: test # will run `yarn test` command
-      - uses: borales/actions-yarn@v2.3.0
-        with:
           cmd: publish # will run `yarn test` command
           token: ${{ secrets.NPM_TOKEN }}
