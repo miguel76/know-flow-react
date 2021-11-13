@@ -64,6 +64,6 @@
     "dist"
   ],
   "dependencies": {
-    "know-flow": "^1.4.3"
+    "know-flow": "^1.4.4"
   }
 }
