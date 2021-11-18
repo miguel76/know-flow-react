@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/no-useless-constructor */
 import React from 'react'
 import nodeToFlow from './node-to-flow'
